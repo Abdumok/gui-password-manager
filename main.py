@@ -17,6 +17,9 @@ def generate_password():
         random.shuffle(password_list)
         password= "".join(password_list)
 
+        #Display the generated password in the password field:
+        password_input.insert(index=0, string=password)
+
 #=========================================== Labels ===================================================================
 website_text = Label(text="Website: ", font=("Times New Roman", 10, "bold"))
 website_text.place(x= 95, y= 200)
@@ -34,7 +37,7 @@ password_input= Entry(width=27)
 password_input.place(x= 160, y=260)
 
 #========================================== Button ===================================================================
-gen_password_button= Button(width=18, text= "Generate Password")
+gen_password_button= Button(width=18, text= "Generate Password", command= generate_password)
 gen_password_button.place(x=329, y= 258)
 add_button= Button(width= 43, text= "Add")
 add_button.place(x= 156, y=289)
