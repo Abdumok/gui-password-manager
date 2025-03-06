@@ -1,3 +1,5 @@
+import random
+import string
 from tkinter import *
 
 # setup main screen
@@ -5,6 +7,15 @@ window= Tk()
 window.title("Password Manager")
 window.minsize(width=600, height=400)
 window.config(padx=20, pady=20)
+#=========================================== Functions ================================================================
+def generate_password():
+        letters= [random.choice(string.ascii_letters) for _ in range(random.randint(6, 8))]
+        numbers= [random.choice(string.digits) for _ in range(random.randint(2, 4))]
+        symbols= [random.choice(string.punctuation) for _ in range(random.randint(2, 4))]
+
+        password_list= letters + numbers + symbols
+        random.shuffle(password_list)
+        password= "".join(password_list)
 
 #=========================================== Labels ===================================================================
 website_text = Label(text="Website: ", font=("Times New Roman", 10, "bold"))
