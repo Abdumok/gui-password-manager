@@ -17,6 +17,9 @@ def generate_password():
         random.shuffle(password_list)
         password= "".join(password_list)
 
+        # Clear the password field before generate new one:
+        password_input.delete(first=0, last=END)
+
         #Display the generated password in the password field:
         password_input.insert(index=0, string=password)
 
