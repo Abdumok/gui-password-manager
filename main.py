@@ -1,3 +1,4 @@
+import json
 import random
 import string
 from tkinter import *
@@ -23,6 +24,22 @@ def generate_password():
         #Display the generated password in the password field:
         password_input.insert(index=0, string=password)
 
+def save_data():
+        website= website_input.get()
+        email= email_input.get()
+        password= password_input.get()
+
+        new_data= {
+                website : {
+                        "email": email,
+                        "password": password,
+                }
+        }
+        with open("data_file.json", mode="w") as my_file:
+                json.dump(obj=new_data, fp=my_file, indent=4)
+
+
+
 #=========================================== Labels ===================================================================
 website_text = Label(text="Website: ", font=("Times New Roman", 10, "bold"))
 website_text.place(x= 95, y= 200)
@@ -42,7 +59,7 @@ password_input.place(x= 160, y=260)
 #========================================== Button ===================================================================
 gen_password_button= Button(width=18, text= "Generate Password", command= generate_password)
 gen_password_button.place(x=329, y= 258)
-add_button= Button(width= 43, text= "Add")
+add_button= Button(width= 43, text= "Add", command=save_data)
 add_button.place(x= 156, y=289)
 search_button= Button(width=15, text="Search")
 search_button.place(x= 350, y= 197)
