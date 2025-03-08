@@ -24,6 +24,7 @@ def generate_password():
         #Display the generated password in the password field:
         password_input.insert(index=0, string=password)
 
+
 def save_data():
         website= website_input.get()
         email= email_input.get()
@@ -35,9 +36,22 @@ def save_data():
                         "password": password,
                 }
         }
-        with open("data_file.json", mode="w") as my_file:
-                json.dump(obj=new_data, fp=my_file, indent=4)
-
+        # if the data file is already created
+        try:
+                with open ("data_file.json", mode="r") as file:
+                        data= json.load(file)
+        # if the data file not exist(lunch the program for first time)
+        except FileNotFoundError:
+                with open("data_file.json", mode="w") as my_file:
+                        json.dump(obj=new_data, fp=my_file, indent=4) # use indent property to justify json data
+        else:
+                data.update(new_data)
+                with open("data_file.json", mode="w") as myfile:
+                        json.dump(obj= data, fp=myfile, indent=4)
+        finally:
+                # clear website and password field
+                website_input.delete(0, END)
+                password_input.delete(0, END)
 
 
 #=========================================== Labels ===================================================================
