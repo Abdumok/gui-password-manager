@@ -2,6 +2,9 @@ import json
 import random
 import string
 from tkinter import *
+from tkinter import messagebox
+
+from click import confirm
 
 # setup main screen
 window= Tk()
@@ -36,22 +39,29 @@ def save_data():
                         "password": password,
                 }
         }
-        # if the data file is already created
-        try:
-                with open ("data_file.json", mode="r") as file:
-                        data= json.load(file)
-        # if the data file not exist(lunch the program for first time)
-        except FileNotFoundError:
-                with open("data_file.json", mode="w") as my_file:
-                        json.dump(obj=new_data, fp=my_file, indent=4) # use indent property to justify json data
+        # check for empty field:
+        if len(website) == 0 or len(email) == 0 or len(password) == 0:
+                messagebox.showerror(title="Empty Field", message="You let one or more field empty")
         else:
-                data.update(new_data)
-                with open("data_file.json", mode="w") as myfile:
-                        json.dump(obj= data, fp=myfile, indent=4)
-        finally:
-                # clear website and password field
-                website_input.delete(0, END)
-                password_input.delete(0, END)
+                is_ok= messagebox.askokcancel(title=f"{website}", message=f"These are the details entered: "
+                        f"\n\nEmail: {email} \n\nPassword: {password} \n\n Are you sure want to save that")
+                if is_ok:
+                        # if the data file is already created
+                        try:
+                                with open ("data_file.json", mode="r") as file:
+                                        data= json.load(file)
+                        # if the data file not exist(lunch the program for first time)
+                        except FileNotFoundError:
+                                with open("data_file.json", mode="w") as my_file:
+                                        json.dump(obj=new_data, fp=my_file, indent=4) # use indent property to justify json data
+                        else:
+                                data.update(new_data)
+                                with open("data_file.json", mode="w") as myfile:
+                                        json.dump(obj= data, fp=myfile, indent=4)
+                        finally:
+                                # clear website and password field
+                                website_input.delete(0, END)
+                                password_input.delete(0, END)
 
 #======================================================================================================================
 canvas= Canvas(width=200, height=200)
