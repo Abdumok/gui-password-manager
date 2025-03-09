@@ -53,6 +53,11 @@ def save_data():
                 website_input.delete(0, END)
                 password_input.delete(0, END)
 
+#======================================================================================================================
+canvas= Canvas(width=200, height=200)
+img=PhotoImage(file="logo.png")
+canvas.create_image(100, 100, image=img)
+canvas.place(x=180, y=0)
 
 #=========================================== Labels ===================================================================
 website_text = Label(text="Website: ", font=("Times New Roman", 10, "bold"))
